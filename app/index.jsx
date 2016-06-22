@@ -6,6 +6,6 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-  <div>Hello world</div>,
+  <div>Ahoj Svete!</div>,
   document.getElementById('app')
 );
