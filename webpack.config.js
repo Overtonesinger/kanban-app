@@ -32,7 +32,7 @@ const common = merge(
       // E.g., '/kanban-demo/'. Webpack will alter asset paths
       // based on this. You can even use an absolute path here
       // or even point to a CDN.
-      //publicPath: ''
+      //publicPath: '/kanban-app/'
     },
     resolve: {
       extensions: ['', '.js', '.jsx']
@@ -101,8 +101,8 @@ switch(TARGET) {
       parts.setupCSS(PATHS.style),
       parts.devServer({
         // Customize host/port here if needed
-        host: process.env.HOST,
-        port: 8080,
+        host: '0.0.0.0',
+        port: process.env.PORT,
         poll: ENABLE_POLLING
       }),
       parts.enableReactPerformanceTools(),
