@@ -6,6 +6,7 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-  <div>Ahoj svete REACTu + webpacku!</div>,
+	<div>Ahoj svete REACTu a webpacku! :D</div>,
   document.getElementById('app')
 );
+
