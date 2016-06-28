@@ -1,14 +1,14 @@
 import React from 'react';
 import uuid from 'uuid';
-import BaseComponent from './BaseComponent';
+import Base from './BaseComponent';  // this._bind() ....... the "mass-binder"
 import Notes from './Notes';
 
-export default class App extends BaseComponent {
+export default class App extends Base {
   constructor(props) {
     super(props);
     // this._bind('_handleClick', '_handleFoo');    //can NOW be used - instead of:
-    // this. _handleClick = this. _handleClick.bind(this);
-    // this. _handleFoo = this. _handleFoo.bind(this);
+      // this. _handleClick = this. _handleClick.bind(this);
+      // this. _handleFoo = this. _handleFoo.bind(this);
 
     this.state = {
       notes: [
@@ -33,7 +33,7 @@ export default class App extends BaseComponent {
 
     return (
       <div>
-        <button onClick={this.addNote}>+</button>
+        <button onClick="{this.addNote}">+</button>
 
         <Notes notes={notes} onDelete={this.deleteNote} />
       </div>
@@ -51,7 +51,7 @@ export default class App extends BaseComponent {
     });
   }
 
-deleteNote = (id, e) => {
+  deleteNote = (id, e) => {
     e.stopPropagation();  // Avoid bubbling to edit
 
     this.setState({

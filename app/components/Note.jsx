@@ -6,4 +6,3 @@ export default ({task, onDelete}) => (
     <button onClick={onDelete}>x</button>
   </div>
 );
-/* ------------wrong syntax-highlight STOPPER!------------- */

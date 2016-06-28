@@ -7,5 +7,4 @@ export default ({notes, onDelete=() => {}}) => (
       <Note onDelete={onDelete.bind(null, id)} task={task} />
     </li>
   )}</ul>
-)
-/* ------------wrong syntax-highlight STOPPER!------------- */
+);
