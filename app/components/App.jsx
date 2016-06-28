@@ -1,10 +1,14 @@
 import React from 'react';
 import uuid from 'uuid';
+import BaseComponent from './BaseComponent';
 import Notes from './Notes';
 
-export default class App extends React.Component {
+export default class App extends BaseComponent {
   constructor(props) {
     super(props);
+    // this._bind('_handleClick', '_handleFoo');    //can NOW be used - instead of:
+    // this. _handleClick = this. _handleClick.bind(this);
+    // this. _handleFoo = this. _handleFoo.bind(this);
 
     this.state = {
       notes: [
@@ -14,38 +18,14 @@ export default class App extends React.Component {
         },
         {
           id: uuid.v4(),
+          task: 'Learn ES6'
+        },
+        {
+          id: uuid.v4(),
           task: 'Do laundry'
         }
       ]
     };
-  }
-
-  addNote = () => {
-    // It would be possible to write this in an imperative style.
-    // I.e., through `this.state.notes.push` and then
-    // `this.setState({notes: this.state.notes})` to commit.
-    //
-    // I tend to favor functional style whenever that makes sense.
-    // Even though it might take more code sometimes, I feel
-    // the benefits (easy to reason about, no side effects)
-    // more than make up for it.
-    //
-    // Libraries, such as Immutable.js, go a notch further.
-    this.setState({
-      notes: this.state.notes.concat([{
-        id: uuid.v4(),
-        task: 'New task'
-      }])
-    });
-  }
-
-deleteNote = (id, e) => {
-    // Avoid bubbling to edit
-    e.stopPropagation();
-
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== id)
-    });
   }
 
   render() {
@@ -54,8 +34,28 @@ deleteNote = (id, e) => {
     return (
       <div>
         <button onClick={this.addNote}>+</button>
+
         <Notes notes={notes} onDelete={this.deleteNote} />
       </div>
-    );
+    )
+  }
+  /* ------------wrong syntax-highlight STOPPER!------------- */
+
+
+  addNote = () => {
+    this.setState({
+      notes: this.state.notes.concat([{
+        id: uuid.v4(),
+        task: 'Novej task'
+      }])
+    });
+  }
+
+deleteNote = (id, e) => {
+    e.stopPropagation();  // Avoid bubbling to edit
+
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== id)
+    });
   }
 }
