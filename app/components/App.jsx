@@ -28,20 +28,20 @@ export default class App extends Base {
     };
   }
 
+  //----render
   render() {
     const {notes} = this.state;
 
     return (
       <div>
-        <button onClick="{this.addNote}">+</button>
-
+        <button onClick={this.addNote}>+</button>
         <Notes notes={notes} onDelete={this.deleteNote} />
       </div>
     )
   }
   /* ------------wrong syntax-highlight STOPPER!------------- */
 
-
+  //----add a note
   addNote = () => {
     this.setState({
       notes: this.state.notes.concat([{
@@ -51,6 +51,7 @@ export default class App extends Base {
     });
   }
 
+  //----delete a note
   deleteNote = (id, e) => {
     e.stopPropagation();  // Avoid bubbling to edit
 
