@@ -5,14 +5,17 @@ export default ({editing, value, onEdit, ...props}) => {
   if (editing) {
     return <Edit value={value} onEdit={onEdit} {...props} />;
   }
+  /* ------------wrong syntax-highlight STOPPER!------------- */
 
-  return <span {...props}>{value}</span>;
+  return <span className={classnames('value', className)} {...props}>
+    {value}
+  </span>;
+  // *------------wrong syntax-highlight STOPPER!-------------*/
 }
-
 
 class Edit extends Base {
   render() {
-    const {value, ...props} = this.props;
+    const {className, value, ...props} = this.props;
 
     return <input
       type="text"

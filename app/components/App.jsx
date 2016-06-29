@@ -35,7 +35,7 @@ export default class App extends Base {
 
     return (
       <div>
-        <button onClick={this.addNote}>+</button>
+        <button className="add-note" onClick={this.addNote}>+</button>
         <Notes notes={notes}
           onNoteClick={this.activateNoteEdit}
           onEdit={this.editNote}
