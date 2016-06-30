@@ -6,6 +6,6 @@ import setup from './setup';
 setup(alt);
 
 export default ({children}) =>
-  <AltContainer flux={alt}>
-    {children}
-  </AltContainer>
+	<AltContainer flux={alt}>
+		{children}
+	</AltContainer>

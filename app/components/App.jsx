@@ -3,41 +3,24 @@ import uuid from 'uuid';
 var ExecutionEnvironment = require('exenv');
 import Base from './BaseComponent';  // this._bind() ....... the "mass-binder"
 import Notes from './Notes';
-
 import connect from '../libs/connect';
+import NoteActions from '../actions/NoteActions';
+
 
 class App extends Base {
-	constructor(props) {
-		super(props);
+//	constructor(props) {
+//		super(props);
 		// this._bind('_handleClick', '_handleFoo');    //can NOW be used - instead of:
-			// this. _handleClick = this. _handleClick.bind(this);
-			// this. _handleFoo = this. _handleFoo.bind(this);
-
-		this.state = {
-			notes: [
-				{
-					id: uuid.v4(),
-					task: 'Learn React'
-				},
-				{
-					id: uuid.v4(),
-					task: 'Learn ES6'
-				},
-				{
-					id: uuid.v4(),
-					task: 'Do laundry'
-				}
-			]
-		};
-	}
+		// this. _handleClick = this. _handleClick.bind(this);
+		// this. _handleFoo = this. _handleFoo.bind(this);
+//	}
 
 	//----render
 	render() {
-		const {notes} = this.state;
+		const {notes} = this.props;
 
 		return (
 			<div>
-				{this.props.test}
 				<button className="add-note" onClick={this.addNote}>+</button>
 				<Notes
 					notes={notes}
@@ -52,69 +35,33 @@ class App extends Base {
 
 	//----add a note
 	addNote = () => {
-		this.setState({
-			notes: this.state.notes.concat([{
-				id: uuid.v4(),
-				task: 'Novej task'
-			}])
+		this.props.NoteActions.create({
+			id: uuid.v4(),
+			task: 'New task'
 		});
 	}
 
 	//----delete a note
 	deleteNote = (id, e) => {
 		e.stopPropagation();  // Avoid bubbling to edit
-
-		this.setState({
-			notes: this.state.notes.filter(note => note.id !== id)
-		});
+		this.props.NoteActions.delete(id);
 	}
 
 	//----begin editing
 	activateNoteEdit = (id) => {
-		this.setState({
-			notes: this.state.notes.map(note => {
-				if(note.id === id)
-				{
-					note.editing = true;
-				}
-				return note;
-			})
-		});
+		this.props.NoteActions.update({id, editing: true});
 	}
 
 	editNote = (id, task) => {
-		this.setState({
-			notes: this.state.notes.map(note => {
-				if(note.id === id)
-				{
-					note.editing = false;
-					note.task = task;
-				}
-				return note;
-			})
-		});
+		const {NoteActions} = this.props;
+		NoteActions.update({id, task, editing: false});
 	}
 
-/*
-	//----debug methods...
-	componentWillMount() {
-		if (ExecutionEnvironment.canUseViewport) {
-			console.log('componentWillMount() Triggered on CLIENT.');
-		}
-		else console.log('componentWillMount() now triggered on server-side.');
-	}
-
-	//----debug
-	componentDidMount() {
-		if (ExecutionEnvironment.canUseViewport) {
-			console.log('componentDidMount() Triggered on CLIENT.');
-		}
-		else console.log('componentDidMount() now triggered on server-side.');
-	}
-*/
 }
 
 
-export default connect(() => ({
-	test: 'test'
-}))(App)
+export default connect(({notes}) => ({
+	notes
+}), {
+	NoteActions
+})(App)
