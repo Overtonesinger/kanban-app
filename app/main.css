@@ -41,6 +41,7 @@ body {
 .note .editable {
 	float: left;
 }
+
 .note .delete {
 	float: right;
 
@@ -53,6 +54,7 @@ body {
 
 	visibility: hidden;
 }
+
 .note:hover .delete {
 	visibility: visible;
 }
