@@ -7,8 +7,7 @@ export default class LaneStore {
 	}
 
 	create(lane) {
-		// If `notes` aren't provided for some reason, default to an empty array.
-		lane.notes = lane.notes || [];
+		lane.notes = lane.notes || [];	// If no 'notes' provided, default to empty array.
 
 		this.setState({
 			lanes: this.lanes.concat(lane)
@@ -23,6 +22,12 @@ export default class LaneStore {
 				}
 				return lane;
 			})
+		});
+	}
+
+	delete(id) {
+		this.setState({
+			lanes: this.lanes.filter(lane => lane.id !== id)
 		});
 	}
 
