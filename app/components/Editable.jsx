@@ -17,8 +17,9 @@ export default ({editing, value, onEdit, className, ...props}) => {
 	return <span className={classnames('value', className)} {...props}>
 		{value}
 	</span>;
-	/*---WORKAROUND wrong syntax-highlight STOPPER---*/
 }
+/*---WORKAROUND wrong syntax-highlight STOPPER---*/
+
 
 class Edit extends Base {
 	render() {
