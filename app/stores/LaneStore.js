@@ -1,3 +1,4 @@
+import update from 'react-addons-update';
 import LaneActions from '../actions/LaneActions';
 
 export default class LaneStore {
@@ -54,5 +55,29 @@ export default class LaneStore {
 				return lane;
 			})
 		});
+	}
+
+move({sourceId, targetId}) {
+		const lanes = this.lanes;
+		const sourceLane = lanes.filter(lane => lane.notes.includes(sourceId))[0];
+		const targetLane = lanes.filter(lane => lane.notes.includes(targetId))[0];
+		const sourceNoteIndex = sourceLane.notes.indexOf(sourceId);
+		const targetNoteIndex = targetLane.notes.indexOf(targetId);
+
+		if(sourceLane === targetLane) {
+			// move at once to avoid complications
+			sourceLane.notes = update(sourceLane.notes, {
+				$splice: [
+					[sourceNoteIndex, 1],
+					[targetNoteIndex, 0, sourceId]
+				]
+			});
+		}
+		else {
+			sourceLane.notes.splice(sourceNoteIndex, 1);	// get rid of the source
+			targetLane.notes.splice(targetNoteIndex, 0, sourceId);	// and move it to the target
+		}
+
+		this.setState({lanes});
 	}
 }

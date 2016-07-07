@@ -60,6 +60,10 @@
     "classnames": "^2.2.5",
     "exenv": "^1.2.1",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-addons-update": "^15.2.0",
+    "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
+    "react-dom": "^15.1.0",
+    "redux": "^3.5.2"
   }
 }

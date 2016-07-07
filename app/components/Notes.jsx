@@ -1,6 +1,7 @@
 import React from 'react';
-import Editable from './Editable';
 import Note from './Note';
+import Editable from './Editable';
+import LaneActions from '../actions/LaneActions';
 
 export default ({
 	notes,
@@ -9,7 +10,10 @@ export default ({
 
 	<ul className="notes">{notes.map(({id, editing, task}) =>
 		<li key={id}>
-			<Note className="note" onClick={onNoteClick.bind(null, id)}>
+			<Note className="note" id={id}
+					editing={editing}
+					onClick={onNoteClick.bind(null, id)}
+					onMove={LaneActions.move}>
 				<Editable editing={editing} value={task} onEdit={onEdit.bind(null, id)} />
 				<button
 					className="delete"
